@@ -1,9 +1,11 @@
-
-import os
+import os no
 import requests
 
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
+print("TOKEN:", TOKEN)
+print("CHAT_ID:", CHAT_ID)
 
 def generar_texto():
     return "🍅 Consejo gastronómico del día: añade sal al tomate 10 min antes de servir para potenciar sabor."
