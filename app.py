@@ -1,23 +1,23 @@
 import os
-import requests
+from telegram import Update
+from telegram.ext import ApplicationBuilder, MessageHandler, ContextTypes, filters
 
-TOKEN = os.getenv("TELEGRAM_TOKEN")
-CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+MI_CHAT_ID = os.getenv("CHAT_ID")
 
-print("TOKEN:", TOKEN)
-print("CHAT_ID:", CHAT_ID)
 
-def generar_texto():
-    return "🍅 Consejo gastronómico del día: añade sal al tomate 10 min antes de servir para potenciar sabor."
+async def reenviar(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # reenvía TODO lo que reciba a tu chat
+    await context.bot.forward_message(
+        chat_id=MI_CHAT_ID,
+        from_chat_id=update.effective_chat.id,
+        message_id=update.message.message_id
+    )
 
-def enviar_mensaje(texto):
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
-    payload = {
-        "chat_id": CHAT_ID,
-        "text": texto
-    }
-    requests.post(url, json=payload)
 
-if __name__ == "__main__":
-    mensaje = generar_texto()
-    enviar_mensaje(mensaje)
+app = ApplicationBuilder().token(BOT_TOKEN).build()
+
+app.add_handler(MessageHandler(filters.ALL, reenviar))
+
+app.run_polling()
+
