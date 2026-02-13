@@ -4,13 +4,17 @@ import requests
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-mensaje = "Hola 👋 Tu bot de historias funciona correctamente"
+def generar_texto():
+    return "🍅 Consejo gastronómico del día: añade sal al tomate 10 min antes de servir para potenciar sabor."
 
-url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+def enviar_mensaje(texto):
+    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+    payload = {
+        "chat_id": CHAT_ID,
+        "text": texto
+    }
+    requests.post(url, json=payload)
 
-requests.post(url, data={
-    "chat_id": CHAT_ID,
-    "text": mensaje
-})
-
-print("Mensaje enviado")
+if __name__ == "__main__":
+    mensaje = generar_texto()
+    enviar_mensaje(mensaje)
