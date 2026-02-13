@@ -1,4 +1,4 @@
-import os no
+import os
 import requests
 
 TOKEN = os.getenv("TELEGRAM_TOKEN")
