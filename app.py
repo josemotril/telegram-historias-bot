@@ -1,3 +1,5 @@
+print("TOKEN:", TOKEN)
+print("CHAT_ID:", CHAT_ID)
 import os
 import requests
 
